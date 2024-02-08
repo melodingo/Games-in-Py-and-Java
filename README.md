@@ -1,4 +1,4 @@
 # Pygame-IMS
 
-This is a project
+Trying to make Games with Python
 
