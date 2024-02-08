@@ -11,9 +11,11 @@ BLAU    = (0, 0, 255)
 #Startpositionen
 circleX = 250
 circleY = 250
+screen_width = 1000
+screen_height = 480
 
 # Fenster öffnen
-TestScreen = pygame.display.set_mode((640, 480))
+TestScreen = pygame.display.set_mode((screen_width, screen_height))
 
 # Titel für Fensterkopf
 pygame.display.set_caption("Test")
@@ -23,12 +25,6 @@ spielaktiv = True
 
 # Bewegungsgeschwindigkeit
 speed = 5
-
-# Bewegungsrichtungen
-move_left = False
-move_right = False
-move_up = False
-move_down = False
 
 # Bildschirm Aktualisierungen einstellen
 clock = pygame.time.Clock()
@@ -40,36 +36,27 @@ while spielaktiv:
         if event.type == pygame.QUIT:
             spielaktiv = False
             print("Spieler hat Quit-Button angeklickt")
-        elif event.type == pygame.KEYDOWN:
-            # Bewegung starten, wenn die entsprechende Taste gedrückt wird
-            if event.key == pygame.K_w:
-                move_up = True
-            elif event.key == pygame.K_a:
-                move_left = True
-            elif event.key == pygame.K_s:
-                move_down = True
-            elif event.key == pygame.K_d:
-                move_right = True
-        elif event.type == pygame.KEYUP:
-            # Bewegung stoppen, wenn die entsprechende Taste losgelassen wird
-            if event.key == pygame.K_w:
-                move_up = False
-            elif event.key == pygame.K_a:
-                move_left = False
-            elif event.key == pygame.K_s:
-                move_down = False
-            elif event.key == pygame.K_d:
-                move_right = False
-
-    # Kreisposition aktualisieren basierend auf Bewegungsflaggen
-    if move_left:
-        circleX -= speed
-    if move_right:
-        circleX += speed
-    if move_up:
+    
+    # Tastatureingaben überprüfen
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w]:
         circleY -= speed
-    if move_down:
+    if keys[pygame.K_a]:
+        circleX -= speed
+    if keys[pygame.K_s]:
         circleY += speed
+    if keys[pygame.K_d]:
+        circleX += speed
+
+    # Überprüfen, ob der Kreis die Grenzen des Bildschirms erreicht hat
+    if circleX < 0:
+        circleX = 0
+    elif circleX > screen_width:
+        circleX = screen_width
+    if circleY < 0:
+        circleY = 0
+    elif circleY > screen_height:
+        circleY = screen_height
 
     # Spielfeld löschen
     TestScreen.fill(WEISS)
