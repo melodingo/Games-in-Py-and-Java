@@ -1,3 +1,4 @@
 # Pygame-IMS
 
-This is a project UWU
+This is a project
+
