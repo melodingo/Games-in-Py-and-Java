@@ -12,7 +12,7 @@ SCHWARZ = ( 0, 0, 0)
 WEISS   = ( 255, 255, 255)
 
 # Fenster öffnen
-screen = pygame.display.set_mode((640, 480))
+TestScreen = pygame.display.set_mode((640, 480))
 
 # Titel für Fensterkopf
 pygame.display.set_caption("Test")
@@ -47,11 +47,13 @@ while spielaktiv:
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             print("Spieler hast Maus angeklickt")
-
-    # Spiellogik hier integrieren
-
+    
     # Spielfeld löschen
-    screen.fill(WEISS)
+    TestScreen.fill(WEISS)
+    
+    
+    #Kreis
+    pygame.draw.circle(TestScreen, (0, 0, 255), (0, 0), 75)
 
     # Spielfeld/figuren zeichnen
 
@@ -60,8 +62,5 @@ while spielaktiv:
 
     # Refresh-Zeiten festlegen
     clock.tick(60)
-
-    #Kreis
-    pygame.draw.circle(screen, (0, 0, 255), (250, 250), 75)
 
 pygame.quit()
