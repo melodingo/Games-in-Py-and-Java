@@ -1,4 +1,5 @@
 import random
+import keyboard
 
 def generate_random_card():
     all_cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
@@ -30,3 +31,6 @@ def print_blackjack_table(player_hand, dealer_hand, reveal=False):
 player_hand = [generate_random_card(), generate_random_card()]
 dealer_hand = [generate_random_card(), generate_random_card()]
 print_blackjack_table(player_hand, dealer_hand)
+
+if keyboard.is_pressed("enter"):
+    print_blackjack_table(player_hand, dealer_hand, reveal=True)
