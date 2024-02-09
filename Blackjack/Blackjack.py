@@ -8,20 +8,14 @@ def generate_random_card():
     return random.choice(all_cards)
 
 def print_blackjack_table(player_hand, dealer_hand, reveal=False):
+    max_player_card_length = max(len(card) for card in player_hand)
+    max_card_length = max(max_player_card_length, 3)  
     print("╔═══════════════════╗")
     print("║ Dealer's Cards:   ║")
-    print("║  [", dealer_hand[0], "]  [", end=" ")
-    if reveal:
-        print(dealer_hand[1], end=" ")
-    else:
-        print(" ? ", end=" ")
-    print("]  ║")
+    print("║  [ {:<{}} ]  [ {:<{}} ] ║".format(dealer_hand[0], max_card_length, dealer_hand[1] if reveal else "?", max_card_length))
     print("╠═══════════════════╣")
     print("║ Your Cards:       ║")
-    print("║  [", end=" ")
-    for card in player_hand:
-        print(card, end=" ")
-    print("]        ║")
+    print("║  [ {:<{}} ]    ║".format("]  [ ".join(player_hand), max_card_length))
     print("╠═══════════════════╣")
     print("║                   ║")
     print("║  [1] Hit          ║")
@@ -32,5 +26,14 @@ player_hand = [generate_random_card(), generate_random_card()]
 dealer_hand = [generate_random_card(), generate_random_card()]
 print_blackjack_table(player_hand, dealer_hand)
 
-if keyboard.is_pressed("enter"):
-    print_blackjack_table(player_hand, dealer_hand, reveal=True)
+while True:
+    if keyboard.is_pressed("space"):
+        
+        print_blackjack_table(player_hand, dealer_hand, reveal=True)
+    
+    if keyboard.is_pressed("enter"):
+        print("enter")
+
+    if keyboard.is_pressed("esc"):
+        break
+
