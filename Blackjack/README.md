@@ -6,7 +6,7 @@ This is a simple command-line Blackjack game implemented in Python. It allows yo
 
 1. Run the `blackjack.py` file.
 2. Follow the prompts to play the game.
-3. Enter `Enter` to hit (take another card) or `Space` to stand (keep your current hand).
+3. Enter `1` to hit (take another card) or `2` to stand (keep your current hand).
 4. Try to get as close to 21 as possible without going over.
 5. The computer will also play, and the winner will be determined based on the highest hand without exceeding 21.
 
