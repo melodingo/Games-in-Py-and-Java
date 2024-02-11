@@ -33,7 +33,7 @@ def print_blackjack_table(player_hand, dealer_hand, reveal=False):
     print("║  [ {:<{}} ]  [ {:<{}} ] ║".format(dealer_hand[0], max_card_length, dealer_hand[1] if reveal else "?", max_card_length))
     print("╠═══════════════════╣")
     print("║ Your Cards:       ║")
-    print("║  [ {:<{}} ]   ║".format("]  [ ".join(player_hand), max_card_length))
+    print("║  [ {:<{}} ]  ║".format("]  [ ".join(player_hand), max_card_length))
     print("╠═══════════════════╣")
     print("║                   ║")
     print("║  [1] Hit          ║")
