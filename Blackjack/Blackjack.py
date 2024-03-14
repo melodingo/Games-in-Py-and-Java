@@ -1,19 +1,19 @@
 import random
 import keyboard
 
-def generate_random_card():
+def generate_random_card():#here the cards are generated with a number and a suit
     all_cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
     suits = ["♠", "♡", "♢", "♣"]
-    all_cards = [card + suit for card in all_cards for suit in suits]
+    all_cards = [card + suit for card in all_cards for suit in suits]#here the card numbers are mixed with a suit
     return random.choice(all_cards)
 
 def calculate_hand_value(hand):
     total_value = 0
     num_aces = 0
     for card in hand:
-        if card[:-1] in ["J", "Q", "K"]:
+        if card[:-1] in ["J", "Q", "K"]:#face cards are given the number 10
             total_value += 10
-        elif card[:-1] == "A":
+        elif card[:-1] == "A":#ace card is given either 11 or 1
             total_value += 11
             num_aces += 1
         else:
@@ -60,7 +60,7 @@ def blackjack():
             else:
                 continue
         
-        if keyboard.is_pressed("2"):
+        if keyboard.is_pressed("2"):#procedes to finish giving the dealers cards and calculates who's the winer
             print("\nRevealing dealer's hidden card:")
             print_blackjack_table(player_hand, dealer_hand, reveal=True)
             dealer_value = calculate_hand_value(dealer_hand)
