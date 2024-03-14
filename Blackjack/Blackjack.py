@@ -33,7 +33,7 @@ def print_blackjack_table(player_hand, dealer_hand, reveal=False):
     print("║  [ {:<{}} ]  [ {:<{}} ] ║".format(dealer_hand[0], max_card_length, dealer_hand[1] if reveal else "?", max_card_length))
     print("╠═══════════════════╣")
     print("║ Your Cards:       ║")
-    print("║  [ {:<{}} ]  ║".format("]  [ ".join(player_hand), max_card_length))
+    print("║  [ {:<{}} ]    ║".format("]  [ ".join(player_hand), max_card_length))
     print("╠═══════════════════╣")
     print("║                   ║")
     print("║  [1] Hit          ║")
@@ -47,7 +47,7 @@ def blackjack():
     print_blackjack_table(player_hand, dealer_hand)
 
     while True:
-        if keyboard.is_pressed("1"):
+        if keyboard.is_pressed("1"):#gives new card when 1 is pressed
             player_hand.append(generate_random_card())
             print_blackjack_table(player_hand, dealer_hand)
             player_value = calculate_hand_value(player_hand)
