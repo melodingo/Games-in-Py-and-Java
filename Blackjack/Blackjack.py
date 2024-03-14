@@ -64,6 +64,7 @@ def blackjack():
             print("\nRevealing dealer's hidden card:")
             print_blackjack_table(player_hand, dealer_hand, reveal=True)
             dealer_value = calculate_hand_value(dealer_hand)
+            player_value = calculate_hand_value(player_hand)
             while dealer_value < 17:
                 dealer_hand.append(generate_random_card())
                 dealer_value = calculate_hand_value(dealer_hand)
@@ -78,5 +79,4 @@ def blackjack():
             else:
                 print("It's a tie! Both you and the dealer have the same hand value:", player_value)
                 break
-
 blackjack()
