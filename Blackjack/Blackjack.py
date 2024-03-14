@@ -28,6 +28,7 @@ def calculate_hand_value(hand):
 def print_blackjack_table(player_hand, dealer_hand, reveal=False):
     max_player_card_length = max(len(card) for card in player_hand)
     max_card_length = max(max_player_card_length, 3)
+    
     print("╔═══════════════════╗")
     print("║ Dealer's Cards:   ║")
     print("║  [ {:<{}} ]  [ {:<{}} ] ║".format(dealer_hand[0], max_card_length, dealer_hand[1] if reveal else "?", max_card_length))
@@ -52,10 +53,14 @@ def blackjack():
             print_blackjack_table(player_hand, dealer_hand)
             player_value = calculate_hand_value(player_hand)
             if player_value > 21:
-                print("You busted! Your hand value is", player_value)
+                print("╔══════════════════════════════════╗",)
+                print("║You busted! Your hand value is", player_value, "║")
+                print("╚══════════════════════════════════╝")
                 break
             elif player_value == 21:
-                print("You got Blackjack! Your hand value is", player_value)
+                print("╔═════════════════════════════════╗",)
+                print("║You got Blackjack! Your hand value is", player_value, "║")
+                print("╚═════════════════════════════════╝")
                 break
             else:
                 continue
@@ -71,10 +76,14 @@ def blackjack():
                 print("\nDealer draws one card:")
                 print_blackjack_table(player_hand, dealer_hand, reveal=True)
             if dealer_value > 21 or dealer_value < player_value:
-                print("You win! Dealer's hand value is", dealer_value)
+                print("╔═══════════════════════════════════╗",)
+                print("║You win! Dealer's hand value is", dealer_value, "║")
+                print("╚═══════════════════════════════════╝")
                 break
             elif dealer_value > player_value:
-                print("Dealer wins! Dealer's hand value is", dealer_value)
+                print("╔═══════════════════════════════════════╗",)
+                print("║Dealer wins! Dealer's hand value is", dealer_value, "║")
+                print("╚═══════════════════════════════════════╝")
                 break
             else:
                 print("It's a tie! Both you and the dealer have the same hand value:", player_value)
