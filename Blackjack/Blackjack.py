@@ -1,3 +1,6 @@
+#Code by melodingo
+#19.03.2024
+
 import random
 import keyboard
 
