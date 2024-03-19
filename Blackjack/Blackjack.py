@@ -58,14 +58,14 @@ def blackjack():
                 print("╚══════════════════════════════════╝")
                 break
             elif player_value == 21:
-                print("╔═════════════════════════════════╗",)
+                print("╔═════════════════════════════════════════╗",)
                 print("║You got Blackjack! Your hand value is", player_value, "║")
-                print("╚═════════════════════════════════╝")
+                print("╚═════════════════════════════════════════╝")
                 break
             else:
                 continue
-        
-        if keyboard.is_pressed("2"):#procedes to finish giving the dealers cards and calculates who's the winer
+    
+        if keyboard.is_pressed("2"):#procedes to finish giving the dealers cards and calculates who's the winner
             print("\nRevealing dealer's hidden card:")
             print_blackjack_table(player_hand, dealer_hand, reveal=True)
             dealer_value = calculate_hand_value(dealer_hand)
