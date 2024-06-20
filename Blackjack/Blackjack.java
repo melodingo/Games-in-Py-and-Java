@@ -37,10 +37,10 @@ public class Blackjack {
                 continue;
             }
 
-            boolean playerWins = blackjack(betAmount);
-            if (playerWins) {
+            int gameResult = blackjack(betAmount); // 1: Player wins, -1: Player loses, 0: Draw
+            if (gameResult == 1) {
                 playerBalance += betAmount;
-            } else {
+            } else if (gameResult == -1) {
                 playerBalance -= betAmount;
             }
 
@@ -99,7 +99,7 @@ public class Blackjack {
         System.out.println("╚═══════════════════╝");
     }
 
-    private static boolean blackjack(double betAmount) {
+    private static int blackjack(double betAmount) {
         List<String> playerHand = new ArrayList<>();
         List<String> dealerHand = new ArrayList<>();
         playerHand.add(generateRandomCard());
@@ -119,14 +119,14 @@ public class Blackjack {
                 int playerValue = calculateHandValue(playerHand);
                 if (playerValue > 21) {
                     System.out.println("╔══════════════════════════════════╗");
-                    System.out.printf("║You busted! Your hand value is %d ║%n", playerValue);
+                    System.out.printf("║You busted! Your hand value is %d║%n", playerValue);
                     System.out.println("╚══════════════════════════════════╝");
-                    return false;
+                    return -1;
                 } else if (playerValue == 21) {
                     System.out.println("╔═════════════════════════════════════════╗");
-                    System.out.printf("║You got Blackjack! Your hand value is %d ║%n", playerValue);
+                    System.out.printf("║You got Blackjack! Your hand value is %d║%n", playerValue);
                     System.out.println("╚═════════════════════════════════════════╝");
-                    return true;
+                    return 1;
                 } else {
                     continue;
                 }
@@ -145,17 +145,18 @@ public class Blackjack {
                     System.out.println("╔═══════════════════════════════════╗");
                     System.out.printf("║You win! Dealer's hand value is %d ║%n", dealerValue);
                     System.out.println("╚═══════════════════════════════════╝");
-                    return true;
+                    return 1;
                 } else if (dealerValue > playerValue) {
                     System.out.println("╔═══════════════════════════════════════╗");
                     System.out.printf("║Dealer wins! Dealer's hand value is %d ║%n", dealerValue);
                     System.out.println("╚═══════════════════════════════════════╝");
-                    return false;
+                    return -1;
                 } else {
                     System.out.printf("It's a tie! Both you and the dealer have the same hand value: %d%n", playerValue);
-                    return false;
+                    return 0;
                 }
             }
         }
     }
 }
+
