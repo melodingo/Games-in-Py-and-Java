@@ -119,12 +119,12 @@ public class Blackjack {
                 int playerValue = calculateHandValue(playerHand);
                 if (playerValue > 21) {
                     System.out.println("╔══════════════════════════════════╗");
-                    System.out.printf("║You busted! Your hand value is %d║%n", playerValue);
+                    System.out.printf("║You busted! Your hand value is %d ║%n", playerValue);
                     System.out.println("╚══════════════════════════════════╝");
                     return false;
                 } else if (playerValue == 21) {
                     System.out.println("╔═════════════════════════════════════════╗");
-                    System.out.printf("║You got Blackjack! Your hand value is %d║%n", playerValue);
+                    System.out.printf("║You got Blackjack! Your hand value is %d ║%n", playerValue);
                     System.out.println("╚═════════════════════════════════════════╝");
                     return true;
                 } else {
@@ -159,4 +159,3 @@ public class Blackjack {
         }
     }
 }
-
