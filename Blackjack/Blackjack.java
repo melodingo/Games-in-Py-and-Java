@@ -1,12 +1,12 @@
-// Code by melodingo translated from Python by my friend (ChatGPT)
-// 04.06.2024
+// Code by melodingo 
+// 13.06.2024
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class blackjack {
+public class Blackjack {
     private static final Random random = new Random();
     private static final String[] CARDS = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
     private static final String[] SUITS = {"♠", "♡", "♢", "♣"};
@@ -54,7 +54,7 @@ public class blackjack {
         System.out.printf("║  [ %-"+maxCardLength+"s ]  [ %-"+maxCardLength+"s ] ║%n", dealerHand.get(0), reveal ? dealerHand.get(1) : "?");
         System.out.println("╠═══════════════════╣");
         System.out.println("║ Your Cards:       ║");
-        System.out.printf("║  [ %-"+maxCardLength+"s ]    ║%n", String.join(" ]  [ ", playerHand));
+        System.out.printf("║  [ %-"+maxCardLength+"s ]   ║%n", String.join(" ]  [ ", playerHand));
         System.out.println("╠═══════════════════╣");
         System.out.println("║                   ║");
         System.out.println("║  [1] Hit          ║");
