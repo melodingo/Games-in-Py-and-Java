@@ -10,9 +10,46 @@ public class Blackjack {
     private static final Random random = new Random();
     private static final String[] CARDS = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
     private static final String[] SUITS = {"♠", "♡", "♢", "♣"};
+    private static double playerBalance = 100.0;  // Starting balance for the player
 
     public static void main(String[] args) {
-        blackjack();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.printf("Your current balance: $%.2f%n", playerBalance);
+            System.out.println("Enter your bet amount (or type 'exit' to quit):");
+            String betInput = scanner.nextLine();
+            if (betInput.equalsIgnoreCase("exit")) {
+                break;
+            }
+            double betAmount;
+            try {
+                betAmount = Double.parseDouble(betInput);
+                if (betAmount > playerBalance) {
+                    System.out.println("You cannot bet more than your current balance.");
+                    continue;
+                }
+                if (betAmount <= 0) {
+                    System.out.println("Please enter a valid bet amount.");
+                    continue;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numerical value.");
+                continue;
+            }
+
+            boolean playerWins = blackjack(betAmount);
+            if (playerWins) {
+                playerBalance += betAmount;
+            } else {
+                playerBalance -= betAmount;
+            }
+
+            if (playerBalance <= 0) {
+                System.out.println("You are out of money! Game over.");
+                break;
+            }
+        }
+        scanner.close();
     }
 
     private static String generateRandomCard() {
@@ -62,7 +99,7 @@ public class Blackjack {
         System.out.println("╚═══════════════════╝");
     }
 
-    private static void blackjack() {
+    private static boolean blackjack(double betAmount) {
         List<String> playerHand = new ArrayList<>();
         List<String> dealerHand = new ArrayList<>();
         playerHand.add(generateRandomCard());
@@ -84,12 +121,12 @@ public class Blackjack {
                     System.out.println("╔══════════════════════════════════╗");
                     System.out.printf("║You busted! Your hand value is %d║%n", playerValue);
                     System.out.println("╚══════════════════════════════════╝");
-                    break;
+                    return false;
                 } else if (playerValue == 21) {
                     System.out.println("╔═════════════════════════════════════════╗");
                     System.out.printf("║You got Blackjack! Your hand value is %d║%n", playerValue);
                     System.out.println("╚═════════════════════════════════════════╝");
-                    break;
+                    return true;
                 } else {
                     continue;
                 }
@@ -108,19 +145,18 @@ public class Blackjack {
                     System.out.println("╔═══════════════════════════════════╗");
                     System.out.printf("║You win! Dealer's hand value is %d ║%n", dealerValue);
                     System.out.println("╚═══════════════════════════════════╝");
-                    break;
+                    return true;
                 } else if (dealerValue > playerValue) {
                     System.out.println("╔═══════════════════════════════════════╗");
                     System.out.printf("║Dealer wins! Dealer's hand value is %d ║%n", dealerValue);
                     System.out.println("╚═══════════════════════════════════════╝");
-                    break;
+                    return false;
                 } else {
                     System.out.printf("It's a tie! Both you and the dealer have the same hand value: %d%n", playerValue);
-                    break;
+                    return false;
                 }
             }
         }
-        scanner.close();
     }
 }
 
