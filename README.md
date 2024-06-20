@@ -1,4 +1,4 @@
-# Pygame-IMS
+# Games-IMS
 
-Trying to make Games with Python
+Trying to make Games with Python and java
 
