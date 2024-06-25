@@ -44,7 +44,6 @@ public class Blackjack {
 
     private static void startGame(Scanner scanner) {
         while (true) { // Game loop
-            System.out.print("\033\143");
             System.out.printf("Your current balance: $%.2f%n", playerBalance); // Display current balance
             System.out.println("Enter your bet amount (or type 'menu' to return to the main menu):");
             String betInput = scanner.nextLine(); // Read bet amount or menu command
