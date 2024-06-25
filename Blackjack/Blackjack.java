@@ -1,5 +1,6 @@
 // Code by melodingo 
 // 13.06.2024
+//https://github.com/melodingo/Games-in-Py-and-Java/tree/5eaf19896a99066120bdc157e13de7fefc2d0e77/Blackjack
 
 import java.util.ArrayList;
 import java.util.List;
