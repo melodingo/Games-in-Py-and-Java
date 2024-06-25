@@ -7,91 +7,91 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Blackjack {
-    private static final Random random = new Random();
-    private static final String[] CARDS = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-    private static final String[] SUITS = {"♠", "♡", "♢", "♣"};
+    private static final Random random = new Random(); // Random object to generate random values
+    private static final String[] CARDS = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"}; // Card values
+    private static final String[] SUITS = {"♠", "♡", "♢", "♣"}; // Card suits
     private static double playerBalance = 100.0;  // Starting balance for the player
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.printf("Your current balance: $%.2f%n", playerBalance);
+        Scanner scanner = new Scanner(System.in); // Scanner object for reading user input
+        while (true) { // Main game loop
+            System.out.printf("Your current balance: $%.2f%n", playerBalance); // Display current balance
             System.out.println("Enter your bet amount (or type 'exit' to quit):");
-            String betInput = scanner.nextLine();
-            if (betInput.equalsIgnoreCase("exit")) {
+            String betInput = scanner.nextLine(); // Read bet amount or exit command
+            if (betInput.equalsIgnoreCase("exit")) { // Exit condition
                 break;
             }
             double betAmount;
             try {
-                betAmount = Double.parseDouble(betInput);
-                if (betAmount > playerBalance) {
+                betAmount = Double.parseDouble(betInput); // Parse the bet amount
+                if (betAmount > playerBalance) { // Check if bet exceeds balance
                     System.out.println("You cannot bet more than your current balance.");
                     continue;
                 }
-                if (betAmount <= 0) {
+                if (betAmount <= 0) { // Check for invalid bet amount
                     System.out.println("Please enter a valid bet amount.");
                     continue;
                 }
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { // Handle non-numeric input
                 System.out.println("Invalid input. Please enter a numerical value.");
                 continue;
             }
 
-            int gameResult = blackjack(betAmount); // 1: Player wins, -1: Player loses, 0: Draw
+            int gameResult = blackjack(betAmount); // Play a round of Blackjack (1: win, -1: lose, 0: draw)
             if (gameResult == 1) {
-                playerBalance += betAmount;
+                playerBalance += betAmount; // Update balance for win
             } else if (gameResult == -1) {
-                playerBalance -= betAmount;
+                playerBalance -= betAmount; // Update balance for loss
             }
 
-            if (playerBalance <= 0) {
+            if (playerBalance <= 0) { // Check for game over condition
                 System.out.println("You are out of money! Game over.");
                 break;
             }
         }
-        scanner.close();
+        scanner.close(); // Close the scanner
     }
 
     private static String generateRandomCard() {
-        String card = CARDS[random.nextInt(CARDS.length)];
-        String suit = SUITS[random.nextInt(SUITS.length)];
-        return card + suit;
+        String card = CARDS[random.nextInt(CARDS.length)]; // Randomly select a card value
+        String suit = SUITS[random.nextInt(SUITS.length)]; // Randomly select a card suit
+        return card + suit; // Return the combined card
     }
 
     private static int calculateHandValue(List<String> hand) {
-        int totalValue = 0;
-        int numAces = 0;
+        int totalValue = 0; // Total value of the hand
+        int numAces = 0; // Number of Aces in the hand
 
         for (String card : hand) {
-            String cardValue = card.substring(0, card.length() - 1);
-            if ("JQK".contains(cardValue)) {
+            String cardValue = card.substring(0, card.length() - 1); // Extract the card value
+            if ("JQK".contains(cardValue)) { // Face cards (J, Q, K) are worth 10 points
                 totalValue += 10;
-            } else if (cardValue.equals("A")) {
+            } else if (cardValue.equals("A")) { // Ace can be worth 11 points
                 totalValue += 11;
                 numAces += 1;
-            } else {
+            } else { // Numeric cards are worth their value
                 totalValue += Integer.parseInt(cardValue);
             }
         }
 
-        while (totalValue > 21 && numAces > 0) {
+        while (totalValue > 21 && numAces > 0) { // Adjust for Aces if total value exceeds 21
             totalValue -= 10;
             numAces -= 1;
         }
 
-        return totalValue;
+        return totalValue; // Return the total hand value
     }
 
     private static void printBlackjackTable(List<String> playerHand, List<String> dealerHand, boolean reveal) {
-        int maxPlayerCardLength = playerHand.stream().mapToInt(String::length).max().orElse(0);
-        int maxCardLength = Math.max(maxPlayerCardLength, 3);
+        int maxPlayerCardLength = playerHand.stream().mapToInt(String::length).max().orElse(0); // Get max card length for player
+        int maxCardLength = Math.max(maxPlayerCardLength, 3); // Determine max card length for formatting
 
         System.out.println("╔═══════════════════╗");
         System.out.println("║ Dealer's Cards:   ║");
-        System.out.printf("║  [ %-"+maxCardLength+"s ]  [ %-"+maxCardLength+"s ] ║%n", dealerHand.get(0), reveal ? dealerHand.get(1) : "?");
+        System.out.printf("║  [ %-"+maxCardLength+"s ]  [ %-"+maxCardLength+"s ] ║%n", dealerHand.get(0), reveal ? dealerHand.get(1) : "?"); // Show dealer's cards, reveal second if true
         System.out.println("╠═══════════════════╣");
         System.out.println("║ Your Cards:       ║");
-        System.out.printf("║  [ %-"+maxCardLength+"s ]   ║%n", String.join(" ]  [ ", playerHand));
+        System.out.printf("║  [ %-"+maxCardLength+"s ]   ║%n", String.join(" ]  [ ", playerHand)); // Show player's cards
         System.out.println("╠═══════════════════╣");
         System.out.println("║                   ║");
         System.out.println("║  [1] Hit          ║");
@@ -100,63 +100,62 @@ public class Blackjack {
     }
 
     private static int blackjack(double betAmount) {
-        List<String> playerHand = new ArrayList<>();
-        List<String> dealerHand = new ArrayList<>();
+        List<String> playerHand = new ArrayList<>(); // Initialize player's hand
+        List<String> dealerHand = new ArrayList<>(); // Initialize dealer's hand
+        playerHand.add(generateRandomCard()); // Deal two cards to player
         playerHand.add(generateRandomCard());
-        playerHand.add(generateRandomCard());
+        dealerHand.add(generateRandomCard()); // Deal two cards to dealer
         dealerHand.add(generateRandomCard());
-        dealerHand.add(generateRandomCard());
 
-        printBlackjackTable(playerHand, dealerHand, false);
+        printBlackjackTable(playerHand, dealerHand, false); // Print initial game table
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); // Scanner for reading player input
 
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equals("1")) {
-                playerHand.add(generateRandomCard());
-                printBlackjackTable(playerHand, dealerHand, false);
-                int playerValue = calculateHandValue(playerHand);
-                if (playerValue > 21) {
+        while (true) { // Player action loop
+            String input = scanner.nextLine(); // Read player action
+            if (input.equals("1")) { // Player chooses to hit
+                playerHand.add(generateRandomCard()); // Add a card to player's hand
+                printBlackjackTable(playerHand, dealerHand, false); // Print updated game table
+                int playerValue = calculateHandValue(playerHand); // Calculate player's hand value
+                if (playerValue > 21) { // Check for bust
                     System.out.println("╔══════════════════════════════════╗");
                     System.out.printf("║You busted! Your hand value is %d║%n", playerValue);
                     System.out.println("╚══════════════════════════════════╝");
-                    return -1;
-                } else if (playerValue == 21) {
+                    return -1; // Player loses
+                } else if (playerValue == 21) { // Check for Blackjack
                     System.out.println("╔═════════════════════════════════════════╗");
                     System.out.printf("║You got Blackjack! Your hand value is %d║%n", playerValue);
                     System.out.println("╚═════════════════════════════════════════╝");
-                    return 1;
+                    return 1; // Player wins
                 } else {
-                    continue;
+                    continue; // Continue the loop if hand value is less than 21
                 }
-            } else if (input.equals("2")) {
+            } else if (input.equals("2")) { // Player chooses to stand
                 System.out.println("\nRevealing dealer's hidden card:");
-                printBlackjackTable(playerHand, dealerHand, true);
-                int dealerValue = calculateHandValue(dealerHand);
-                int playerValue = calculateHandValue(playerHand);
-                while (dealerValue < 17) {
+                printBlackjackTable(playerHand, dealerHand, true); // Reveal dealer's hidden card
+                int dealerValue = calculateHandValue(dealerHand); // Calculate dealer's hand value
+                int playerValue = calculateHandValue(playerHand); // Calculate player's hand value
+                while (dealerValue < 17) { // Dealer draws cards until hand value is 17 or more
                     dealerHand.add(generateRandomCard());
                     dealerValue = calculateHandValue(dealerHand);
                     System.out.println("\nDealer draws one card:");
-                    printBlackjackTable(playerHand, dealerHand, true);
+                    printBlackjackTable(playerHand, dealerHand, true); // Print updated game table
                 }
-                if (dealerValue > 21 || dealerValue < playerValue) {
+                if (dealerValue > 21 || dealerValue < playerValue) { // Dealer busts or player has higher value
                     System.out.println("╔═══════════════════════════════════╗");
                     System.out.printf("║You win! Dealer's hand value is %d ║%n", dealerValue);
                     System.out.println("╚═══════════════════════════════════╝");
-                    return 1;
-                } else if (dealerValue > playerValue) {
+                    return 1; // Player wins
+                } else if (dealerValue > playerValue) { // Dealer has higher value
                     System.out.println("╔═══════════════════════════════════════╗");
                     System.out.printf("║Dealer wins! Dealer's hand value is %d ║%n", dealerValue);
                     System.out.println("╚═══════════════════════════════════════╝");
-                    return -1;
-                } else {
+                    return -1; // Player loses
+                } else { // Tie
                     System.out.printf("It's a tie! Both you and the dealer have the same hand value: %d%n", playerValue);
-                    return 0;
+                    return 0; // Draw
                 }
             }
         }
     }
 }
-
