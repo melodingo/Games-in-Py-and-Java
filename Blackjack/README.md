@@ -13,6 +13,7 @@ This is a simple command-line Blackjack game implemented in Python. It allows yo
 ## Files
 
 - `blackjack.py`: The main Python script containing the game logic.
+- `blackjack.java`: The main Java script containing the game logic.
 - `README.md`: This file, providing information about the game.
 
 ## Usage
