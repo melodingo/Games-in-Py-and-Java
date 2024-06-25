@@ -14,6 +14,7 @@ public class Blackjack {
     private static double playerBalance = 100.0;  // Starting balance for the player
 
     public static void main(String[] args) {
+        System.out.print("\033\143");
         Scanner scanner = new Scanner(System.in); // Scanner object for reading user input
         while (true) { // Main menu loop
             showMenu(); // Display the menu
@@ -21,6 +22,7 @@ public class Blackjack {
             if (menuChoice.equalsIgnoreCase("P")) { // Start the game if 'P' is pressed
                 startGame(scanner); // Start the game loop
             } else if (menuChoice.equalsIgnoreCase("E")) { // Exit the game if 'E' is pressed
+                System.out.print("\033\143");
                 break;
             } else {
                 System.out.println("Invalid choice. Please enter 'P' to play or 'E' to exit."); // Invalid input handling
@@ -42,10 +44,13 @@ public class Blackjack {
 
     private static void startGame(Scanner scanner) {
         while (true) { // Game loop
+            System.out.print("\033\143");
             System.out.printf("Your current balance: $%.2f%n", playerBalance); // Display current balance
             System.out.println("Enter your bet amount (or type 'menu' to return to the main menu):");
             String betInput = scanner.nextLine(); // Read bet amount or menu command
+            System.out.print("\033\143");
             if (betInput.equalsIgnoreCase("menu")) { // Return to menu
+                System.out.print("\033\143");
                 break;
             }
             double betAmount;
