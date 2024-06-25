@@ -1,6 +1,6 @@
 # Python Blackjack Game (Still a WIP)
 
-This is a simple command-line Blackjack game implemented in Python. It allows you to play the popular card game Blackjack against the computer.
+This is a simple command-line Blackjack game implemented in Python and Java. It allows you to play the popular card game Blackjack against the computer.
 
 ## How to Play
 
