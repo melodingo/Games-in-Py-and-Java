@@ -14,11 +14,37 @@ public class Blackjack {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in); // Scanner object for reading user input
-        while (true) { // Main game loop
+        while (true) { // Main menu loop
+            showMenu(); // Display the menu
+            String menuChoice = scanner.nextLine(); // Read the user's menu choice
+            if (menuChoice.equalsIgnoreCase("P")) { // Start the game if 'P' is pressed
+                startGame(scanner); // Start the game loop
+            } else if (menuChoice.equalsIgnoreCase("E")) { // Exit the game if 'E' is pressed
+                break;
+            } else {
+                System.out.println("Invalid choice. Please enter 'P' to play or 'E' to exit."); // Invalid input handling
+            }
+        }
+        scanner.close(); // Close the scanner
+    }
+
+    private static void showMenu() {
+        // Display the main menu
+        System.out.println("╔═════════════════════════╗");
+        System.out.println("║ Welcome to Blackjack!   ║");
+        System.out.println("║                         ║");
+        System.out.println("║ [P] Play                ║");
+        System.out.println("║ [E] Exit                ║");
+        System.out.println("╚═════════════════════════╝");
+        System.out.print("Please make a selection: ");
+    }
+
+    private static void startGame(Scanner scanner) {
+        while (true) { // Game loop
             System.out.printf("Your current balance: $%.2f%n", playerBalance); // Display current balance
-            System.out.println("Enter your bet amount (or type 'exit' to quit):");
-            String betInput = scanner.nextLine(); // Read bet amount or exit command
-            if (betInput.equalsIgnoreCase("exit")) { // Exit condition
+            System.out.println("Enter your bet amount (or type 'menu' to return to the main menu):");
+            String betInput = scanner.nextLine(); // Read bet amount or menu command
+            if (betInput.equalsIgnoreCase("menu")) { // Return to menu
                 break;
             }
             double betAmount;
@@ -46,10 +72,10 @@ public class Blackjack {
 
             if (playerBalance <= 0) { // Check for game over condition
                 System.out.println("You are out of money! Game over.");
+                playerBalance = 100.0;
                 break;
             }
         }
-        scanner.close(); // Close the scanner
     }
 
     private static String generateRandomCard() {
@@ -119,7 +145,7 @@ public class Blackjack {
                 int playerValue = calculateHandValue(playerHand); // Calculate player's hand value
                 if (playerValue > 21) { // Check for bust
                     System.out.println("╔══════════════════════════════════╗");
-                    System.out.printf("║You busted! Your hand value is %d║%n", playerValue);
+                    System.out.printf("║You busted! Your hand value is %d ║%n", playerValue);
                     System.out.println("╚══════════════════════════════════╝");
                     return -1; // Player loses
                 } else if (playerValue == 21) { // Check for Blackjack
@@ -150,10 +176,10 @@ public class Blackjack {
                     System.out.println("╔═══════════════════════════════════════╗");
                     System.out.printf("║Dealer wins! Dealer's hand value is %d ║%n", dealerValue);
                     System.out.println("╚═══════════════════════════════════════╝");
-                    return -1; // Player loses
-                } else { // Tie
+                    return -1; // Dealer wins
+                } else {
                     System.out.printf("It's a tie! Both you and the dealer have the same hand value: %d%n", playerValue);
-                    return 0; // Draw
+                    return 0; // Tie
                 }
             }
         }
